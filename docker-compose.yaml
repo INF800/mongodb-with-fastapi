@@ -30,8 +30,6 @@ services:
     image: mongo-express
     container_name: mongox
     restart: always
-    volumes:
-      - ./backend/:/usr/src/backend/
     ports:
       - 8081:8081
     environment:
@@ -53,7 +51,9 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: backend
-    command: uvicorn main:app --port=8000 --host 0.0.0.0
+    command: uvicorn main:app --port=8000 --host 0.0.0.0 --reload
+    volumes:
+      - ./backend/:/usr/src/backend/
     ports:
       - 8000:8000
     environment:

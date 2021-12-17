@@ -1,5 +1,6 @@
 import os
-from fastapi import FastAPI, Body, HTTPException, status
+from fastapi import Depends, FastAPI, Body, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, Field, EmailStr
@@ -7,7 +8,11 @@ from bson import ObjectId
 from typing import Optional, List
 import motor.motor_asyncio
 
+from routers import user
+
 app = FastAPI()
+app.include_router(user.router)
+
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 db = client.college
 
