@@ -8,10 +8,11 @@ from bson import ObjectId
 from typing import Optional, List
 import motor.motor_asyncio
 
-from routers import user
+from routers import user, test_motor
 
 app = FastAPI()
 app.include_router(user.router)
+app.include_router(test_motor.router)
 
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
 db = client.college
